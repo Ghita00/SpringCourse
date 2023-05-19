@@ -1,4 +1,4 @@
-package com.apiRestSpring.demo.user;
+package com.example.demo.user;
 
 import java.time.LocalDate;
 
