@@ -1,25 +1,42 @@
 package com.example.demo.user;
 
-import java.time.LocalDate;
+import com.example.demo.post.PostModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Entity(name="user_model")
 public class UserModel {
     //REST API METHODS
     //GET -> give a resource
     //POST -> create a new resource
     //PUT -> update a resource
     //DELETE -> remove a resource
-
+    @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @JsonProperty("user_name")
+    @Column(nullable = false)
     private String name;
-    private LocalDate birthDate;
+    @Column(nullable = false)
+    @JsonProperty("user_age")
+    private int age;
 
+    @OneToMany(mappedBy = "user") //field of post model
+    private List<PostModel> posts;
 
-    public UserModel(int id, String name, LocalDate birthDate) {
+    //add default constructor for query
+    public UserModel(){ }
+
+    public UserModel(int id, String name, int age) {
         this.id = id;
         this.name = name;
-        this.birthDate = birthDate;
+        this.age = age;
     }
-
 
     public int getId() {
         return id;
@@ -29,8 +46,8 @@ public class UserModel {
         return name;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public int getAge() {
+        return age;
     }
 
     public void setId(int id) {
@@ -41,8 +58,8 @@ public class UserModel {
         this.name = name;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -50,9 +67,16 @@ public class UserModel {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + age +
                 '}';
     }
 
 
+    public List<PostModel> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostModel> posts) {
+        this.posts = posts;
+    }
 }
