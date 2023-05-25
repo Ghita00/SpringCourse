@@ -12,11 +12,11 @@ public class EmployController {
     private RestTemplate restTemplate;
 
     @GetMapping("/dipendente")
-
     public String getEmploy(){
-        //get call to URL and map the resul in String type
-        String indirizzo = restTemplate.getForObject("http://localhost:8080/indirizzo", String.class);
-        return "Giorgio Basile " + indirizzo;
+        String indirizzo = "";
+        //without Microservice: get call to URL and map the resul in String type
+        indirizzo = restTemplate.getForObject("http://localhost:8080/indirizzo", String.class);
+        return "Giorgio Basile "+indirizzo;
     }
 
 }
